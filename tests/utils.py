@@ -128,7 +128,7 @@ class ModelTrainer:
 
         (self.X_train, self.X_test,
          self.y_train, _) = train_test_split(
-            self.X, self.y, test_size=test_fraction, random_state=42)
+            self.X, self.y, test_size=test_fraction, random_state=14)
         if additional_test_data is not None:
             self.X_test = np.vstack((additional_test_data, self.X_test))
 
