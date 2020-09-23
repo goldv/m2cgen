@@ -145,6 +145,8 @@ XGBOOST_PARAMS_BOOSTED_RF = dict(base_score=0.6, n_estimators=5,
                                  random_state=RANDOM_SEED)
 XGBOOST_PARAMS_LARGE = dict(base_score=0.6, n_estimators=100, max_depth=12,
                             random_state=RANDOM_SEED)
+XGBOOST_PARAMS_HUGE = dict(base_score=0.6, n_estimators=500, max_depth=12,
+                           random_state=RANDOM_SEED)
 LIGHTGBM_PARAMS = dict(n_estimators=10, random_state=RANDOM_SEED)
 LIGHTGBM_PARAMS_DART = dict(n_estimators=10, boosting_type='dart',
                             max_drop=30, random_state=RANDOM_SEED)
@@ -156,6 +158,8 @@ LIGHTGBM_PARAMS_RF = dict(n_estimators=10, boosting_type='rf',
                           random_state=RANDOM_SEED)
 LIGHTGBM_PARAMS_LARGE = dict(n_estimators=100, num_leaves=100, max_depth=64,
                              random_state=RANDOM_SEED)
+LIGHTGBM_PARAMS_HUGE = dict(n_estimators=500, num_leaves=100, max_depth=64,
+                            random_state=RANDOM_SEED)
 SVC_PARAMS = dict(random_state=RANDOM_SEED, decision_function_shape="ovo")
 STATSMODELS_LINEAR_REGULARIZED_PARAMS = dict(method="elastic_net",
                                              alpha=7, L1_wt=0.2)
@@ -173,7 +177,7 @@ STATSMODELS_LINEAR_REGULARIZED_PARAMS = dict(method="elastic_net",
         (executors.VisualBasicExecutor, VISUAL_BASIC),
         (executors.CSharpExecutor, C_SHARP),
         (executors.PowershellExecutor, POWERSHELL),
-        (executors.RExecutor, R),
+        # (executors.RExecutor, R),
         (executors.PhpExecutor, PHP),
         (executors.DartExecutor, DART),
         (executors.HaskellExecutor, HASKELL),
@@ -221,6 +225,14 @@ STATSMODELS_LINEAR_REGULARIZED_PARAMS = dict(method="elastic_net",
             lightgbm.LGBMClassifier(**LIGHTGBM_PARAMS)),
         classification_binary_random_w_missing_values(
             lightgbm.LGBMClassifier(**LIGHTGBM_PARAMS)),
+
+        # LightGBM (Huge Trees)
+        regression_random(
+            lightgbm.LGBMRegressor(**LIGHTGBM_PARAMS_HUGE)),
+        classification_random(
+            lightgbm.LGBMClassifier(**LIGHTGBM_PARAMS_HUGE)),
+        classification_binary_random(
+            lightgbm.LGBMClassifier(**LIGHTGBM_PARAMS_HUGE)),
 
         # LightGBM (Different Objectives)
         regression(lightgbm.LGBMRegressor(
@@ -293,6 +305,14 @@ STATSMODELS_LINEAR_REGULARIZED_PARAMS = dict(method="elastic_net",
             xgboost.XGBClassifier(**XGBOOST_PARAMS_LARGE)),
         classification_binary_random(
             xgboost.XGBClassifier(**XGBOOST_PARAMS_LARGE)),
+
+        # XGBoost (Huge Trees)
+        regression_random(
+            xgboost.XGBRegressor(**XGBOOST_PARAMS_HUGE)),
+        classification_random(
+            xgboost.XGBClassifier(**XGBOOST_PARAMS_HUGE)),
+        classification_binary_random(
+            xgboost.XGBClassifier(**XGBOOST_PARAMS_HUGE)),
 
         # Sklearn Linear SVM
         regression(svm.LinearSVR(random_state=RANDOM_SEED)),
